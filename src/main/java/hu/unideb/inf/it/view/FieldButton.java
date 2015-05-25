@@ -1,7 +1,7 @@
 package hu.unideb.inf.it.view;
 
-import hu.unideb.inf.it.Main;
 import hu.unideb.inf.it.controller.GameController;
+import hu.unideb.inf.it.controller.Main;
 import hu.unideb.inf.it.model.FigureType;
 
 import java.awt.Color;
