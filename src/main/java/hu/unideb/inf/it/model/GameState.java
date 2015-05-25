@@ -1,7 +1,7 @@
 package hu.unideb.inf.it.model;
 
 /**
- * A jatek jelenlegi allasat reprezentalo osztaly.
+ * A játék jelenlegi állását reprezentáló osztály.
  * 
  * @author Andi
  *
@@ -15,18 +15,18 @@ public class GameState {
 	
 
 	/**
-	 * Megadja, hogy a jatek folyamatban van-e meg.
+	 * Megadja, hogy a játék folyamatban van-e még.
 	 * 
-	 * @return {@code true}, ha a jateknak meg nincs vege, {@code false} egyebkent
+	 * @return {@code true}, ha a játéknak még nincs vége, {@code false} egyébként
 	 */
 	public boolean isActive() {
 		return active;
 	}
 
 	/**
-	 * Beallitja, hogy a jatek folyamatban van-e meg, vagy nem.
+	 * Beallítja, hogy a játék folyamatban van-e még, vagy nem.
 	 * 
-	 * @param active a jatek allapota
+	 * @param active a játék állapota
 	 * @see #isActive()
 	 */
 	public void setActive(boolean active) {
@@ -34,98 +34,98 @@ public class GameState {
 	}
 
 	/**
-	 * Visszaadja a nyertes jatekos indexet.
+	 * Visszaadja a nyertes játékos indexét.
 	 * 
-	 * @return {@code -1}, ha a jateknak meg nincs vege, egyebkent pedig a nyertes jatekos indexet
+	 * @return {@code -1}, ha a játéknak még nincs vége, egyébként pedig a nyertes játékos indexét
 	 */
 	public int getWinner() {
 		return winner;
 	}
 
 	/**
-	 * Beallitja a nyertes jatekos indexet.
+	 * Beallítja a nyertes játékos indexét.
 	 * 
-	 * @param winner nyertes jatekos indexe
+	 * @param winner nyertes játékos indexe
 	 */
 	public void setWinner(int winner) {
 		this.winner = winner;
 	}
 
 	/**
-	 * Letrehoz egy uj jatekallapotot a megadott tablamerettel.
+	 * Létrehoz egy új játékállapotot a megadott táblamérettel.
 	 * 
-	 * @param tableSize a tablameret
+	 * @param tableSize a táblaméret
 	 */
 	public GameState(int tableSize) {
 		table=new Table(tableSize);
 	}
 	
 	/**
-	 * Letrehoz egy uj jatekallapotot a klasszikus tablamerettel.
+	 * Létrehoz egy új játékállapotot a klasszikus táblamérettel.
 	 */
 	public GameState() {
 		this.table=new Table();
 	}
 
 	/**
-	 * Visszaadja a soron kovetkezo jatekos indexet.
+	 * Visszaadja a soron következő játékos indexét.
 	 * 
-	 * @return kovetkezo jatekos indexe
+	 * @return következő játékos indexe
 	 */
 	public int getNextPlayerId() {
 		return nextPlayerId;
 	}
 	
 	/**
-	 * Visszaadja a soron kovetkezo jatekost.
+	 * Visszaadja a soron következő játékost.
 	 * 
-	 * @return soron kovetkezo jatekos
+	 * @return soron következő játékos
 	 */
 	public Player getNextPlayer(){
 		return players[nextPlayerId];
 	}
 	
 	/**
-	 * Beallitja a soron kovetkezo jatekost.
+	 * Beallítja a soron következő játékost.
 	 * 
-	 * @param nextPlayer kovetkezo jatekos indexe
+	 * @param nextPlayer következő játékos indexe
 	 */
 	public void setNextPlayerId(int nextPlayer) {
 		this.nextPlayerId = nextPlayer;
 	}
 	
 	/**
-	 * Visszaadja a jatekmezot
+	 * Visszaadja a játékmezőt
 	 * 
-	 * @return jatekmezo
+	 * @return játékmező
 	 */
 	public Table getTable() {
 		return table;
 	}
 
 	/**
-	 * Visszaadja a jatekban resztvevo jatekosokat.
+	 * Visszaadja a játékban résztvevő játékosokat.
 	 * 
-	 * @return a jatekban resztvevo jatekosok
+	 * @return a játékban résztvevő játékosok
 	 */
 	public Player[] getPlayers() {
 		return players;
 	}
 
 	/**
-	 * Beallitja a jatekban resztvevo jatekosokat.
+	 * Beallítja a játékban résztvevő játékosokat.
 	 * 
-	 * @param players a jatekban resztvevo jatekosok tombje
+	 * @param players a játékban résztvevő játékosok tömbje
 	 */
 	public void setPlayers(Player[] players) {
 		this.players = players;
 	}
 	
 	/**
-	 * Beallitja a jatek egy jatekosat.
+	 * Beallítja a játék egy játékosát.
 	 * 
-	 * @param id a jatekos indexe
-	 * @param player a jatekos objektum
+	 * @param id a játékos indexe
+	 * @param player a játékos objektum
 	 */
 	public void setPlayer(int id, Player player) {
 		this.players[id] = player;

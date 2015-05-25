@@ -1,33 +1,33 @@
 package hu.unideb.inf.it.model;
 
 /**
- * A jatek altal hasznalt babuk tipusa.
+ * A játék által használt bábuk típusa.
  * 
  * @author Andi
  *
  */
 public enum FigureType {
 	/**
-	 * Fekete szinu babu
+	 * Fekete színű bábu
 	 */
 	BLACK("figure_black.png"), 
 	
 	/**
-	 * Feher szinu babu
+	 * Fehér színű bábu
 	 */
 	WHITE("figure_white.png"), 
 	
 	/**
-	 * Ures mezo
+	 * Üres mező
 	 */
 	NONE("figure_empty.png");
 	
 	private String texturePath;
 	
 	/**
-	 * Visszaadja a babutipus altal hasznalt textura eleresi utjat.
+	 * Visszaadja a bábutípus által használt textúra elérési útját.
 	 * 
-	 * @return a textura eleresi utvonala
+	 * @return a textúra elérési útvonala
 	 */
 	public String getTexturePath() {
 		return texturePath;

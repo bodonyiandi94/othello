@@ -5,11 +5,11 @@ import java.util.List;
 import hu.unideb.inf.it.model.HighScoreEntry;
 
 /**
- * A ranglistaadatbazis kezelesere szolgalo interfesz.
+ * A ranglistaadatbázis kezelésére szolgáló interfész.
  * 
  * <p>
- * A program es az adatbazis kozti kommunikacio a {@link HighScoreEntry} osztaly
- * peldanyain keresztul zajlik.
+ * A program és az adatbázis közti kommunikació a {@link HighScoreEntry} osztály
+ * példányain keresztül zajlik.
  * 
  * @author Andi
  *
@@ -17,42 +17,42 @@ import hu.unideb.inf.it.model.HighScoreEntry;
 public interface HighScoreDAO {
 
 	/**
-	 * Letrehoz egy ranglistabejegyzest az adatbazisba a megadott
-	 * bejegyzesobjektum attributumai altal.
+	 * Létrehoz egy ranglistabejegyzést az adatbázisba a megadott
+	 * bejegyzésobjektum attribútumai által.
 	 * 
 	 * @param entry
-	 *            bejegyzesobjektum, amelynek attributumai altal az
-	 *            adatbazis-bejegyzes letrejon
+	 *            bejegyzésobjektum, amelynek attribútumai által az
+	 *            adatbázis-bejegyzés létrejön
 	 */
 	public void createEntry(HighScoreEntry entry);
 
 	/**
-	 * Frissiti az adatbazisban a megadott bejegyzesben levo jatekos adatait az
-	 * ugyancsak itt levo adatok segitsegevel.
+	 * Frissíti az adatbázisban a megadott bejegyzésben lévő játékos adatait az
+	 * ugyancsak itt lévő adatok segítségével.
 	 * 
 	 * @param entry
-	 *            adatbazis-bejegyzes
+	 *            adatbázis-bejegyzés
 	 */
 	public void updateEntry(HighScoreEntry entry);
 
 	/**
-	 * Lekeri az adott jatekoshz tartozo ranglista-bejegyzest az adatbazisbol.
+	 * Lekéri az adott jatékoshoz tartozó ranglista-bejegyzést az adatbázisból.
 	 * 
 	 * @param name
-	 *            a jatekos neve
-	 * @return a jatekoshoz tartozo adatbazis-bejegyzes, ha az letezik az
-	 *         adatbazisban, {@code null} egyebkent
+	 *            a játékos neve
+	 * @return a játékoshoz tartozó adatbázis-bejegyzés, ha az létezik az
+	 *         adatbázisban, {@code null} egyébként
 	 */
 	public HighScoreEntry getEntryByPlayerName(String name);
 
 	/**
-	 * Lekeri az adatbazisbol a legjobb eredmenyeket, a nyert meccsek szerint
-	 * csokkeno sorba rendezve.
+	 * Lekéri az adatbázisból a legjobb eredményeket, a nyert meccsek szerint
+	 * csökkenő sorba rendezve.
 	 * 
 	 * @param number
-	 *            lekerendo bejegyzesek szama
-	 * @return egy legfeljebb {@code number} darab elemet tartalmazo
-	 *         bejegyzeslista
+	 *            lekérendő bejegyzések száma
+	 * @return egy legfeljebb {@code number} darab elemet tartalmazó
+	 *         bejegyzéslista
 	 */
 	public List<HighScoreEntry> getBestEntries(int number);
 }

@@ -1,7 +1,7 @@
 package hu.unideb.inf.it.model;
 
 /**
- * A jatekosokat leiro objektum.
+ * A játékosokat leíro objektum.
  * 
  * @author Andi
  *
@@ -11,42 +11,42 @@ public class Player {
 	FigureType figureType;
 	
 	/**
-	 * Visszaadja a jatekos nevet.
+	 * Visszaadja a játékos nevét.
 	 * 
-	 * @return a jatekos neve
+	 * @return a játékos neve
 	 */
 	public String getName() {
 		return name;
 	}
 	/**
-	 * Beallitja a jatekos nevet.
+	 * Beállítja a játékos nevét.
 	 * 
-	 * @param name a jatekos neve
+	 * @param name a játékos neve
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	/**
-	 * Visszaadja a jatekoshoz tartozo figurak tipusat.
+	 * Visszaadja a játékoshoz tartozó figurák típusát.
 	 * 
-	 * @return a jatekoshoz tartozo figurak tipusa
+	 * @return a játékoshoz tartozó figurák típusa
 	 */
 	public FigureType getFigureType() {
 		return figureType;
 	}
 	/**
-	 * Beallitja a jatekoshoz tartozo figurak tipusat.
+	 * Beállítja a játékoshoz tartozó figurák típusát.
 	 * 
-	 * @param figureType a jatekoshoz tartozo figurak tipusa
+	 * @param figureType a játékoshoz tartozó figurák típusa
 	 */
 	public void setFigureType(FigureType figureType) {
 		this.figureType = figureType;
 	}
 	/**
-	 * Letrehoz egy uj jatekost a megadott parameterekkel.
+	 * Létrehoz egy új játékost a megadott paraméterekkel.
 	 * 
-	 * @param name a jatekos neve
-	 * @param figureType a jatekos figurainak tipusa
+	 * @param name a játékos neve
+	 * @param figureType a játékos figuráinak típusa
 	 */
 	public Player(String name, FigureType figureType) {
 		super();

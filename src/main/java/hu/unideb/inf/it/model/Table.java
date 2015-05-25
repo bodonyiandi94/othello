@@ -1,7 +1,7 @@
 package hu.unideb.inf.it.model;
 
 /**
- * A jatekmezot reprezentalo osztaly.
+ * A játékmezőt reprezentaló osztaly.
  * 
  * @author Andi
  *
@@ -11,16 +11,16 @@ public class Table {
 	private int tableSize;
 
 	/**
-	 * Letrehoz egy uj, klasszikus meretu jatektablat.
+	 * Létrehoz egy új, klasszikus méretű játéktáblát.
 	 */
 	public Table() {
 		this(8);
 	}
 
 	/**
-	 * Letrehoz egy uj tablat a megadott merettel.
+	 * Létrehoz egy új táblát a megadott mérettel.
 	 * 
-	 * @param tableSize a tabla merete, amelynek parosnak kell lennie
+	 * @param tableSize a tábla mérete, amelynek párosnak kell lennie
 	 */
 	public Table(int tableSize) {
 		if (tableSize%2==1){
@@ -45,18 +45,18 @@ public class Table {
 	}
 	
 	/**
-	 * Visszaadja a tabla meretet.
+	 * Visszaadja a tábla méretet.
 	 * 
-	 * @return a tabla merete
+	 * @return a tábla mérete
 	 */
 	public int getTableSize() {
 		return tableSize;
 	}
 	
 	/**
-	 * Visszaadja a tablan levo babuk listajat.
+	 * Visszaadja a táblán lévő bábuk listáját.
 	 * 
-	 * @return a babuk listaja egy tombben
+	 * @return a bábuk listája egy tömbben
 	 */
 	public Figure[][] getFigures() {
 		return figures;

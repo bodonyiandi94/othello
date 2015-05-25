@@ -1,5 +1,7 @@
 package hu.unideb.inf.it.controller;
 
+import java.awt.event.ActionListener;
+
 import hu.unideb.inf.it.model.Figure;
 import hu.unideb.inf.it.model.FigureType;
 import hu.unideb.inf.it.model.GameState;
@@ -13,22 +15,62 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A jateklogikat megvalosito osztaly.
+ * A jatéklogikát megvalósító osztály.
+ * 
+ * <p>
+ * A játék indításához az alábbi utasítás elvégzése szükséges:
+ * 
+ * <pre>
+ * 		GameController.getInstance().start();
+ * </pre>
+ * 
+ * <p>
+ * A fenti metódushívás eredménye az alábbi tevékenységsorozat végrehajtásával
+ * ekvivalent:
+ * 
+ * <pre>
+ * 		GameController controller = GameContoller.getInstance();
+ * 		controller.addPlayer(&quot;Játékos 1&quot;);
+ * 		controller.addPlayer(&quot;Játékos 2&quot;);
+ * 		controller.newGame(8, 0);
+ * </pre>
+ * 
+ * <p>
+ * Manuális körváltás az alábbi módon lehetséges:
+ * 
+ * <pre>
+ * 		GameController controller = GameContoller.getInstance();
+ * 		controller.setTurnPlayer(0);
+ * 		System.out.println(controller.getGameState().getNextPlayerId());
+ * 		System.out.println(controller.getGameState().getNextPlayer().getName());
+ * </pre>
+ * 
+ * <p>
+ * A felhasználói interakció kezeléséhez szükség van az eseményt kiváltó
+ * {@link FieldButton} példányra. Ha {@code e} egy {@link ActionListener}
+ * példány {@link ActionListener#actionPerformed(java.awt.event.ActionEvent)}
+ * argumentuma, akkor az alábbi példakódban szereplő módon történhet a mezőkre
+ * történő kattintás kezelése:
+ * 
+ * <pre>
+ * 		GameContoller.getInstance().handleButtonClick((FieldButton) e.getSource());
+ * </pre>
  * 
  * @author Andi
  *
  */
 public class GameController {
-	private static Logger logger = LoggerFactory
-			.getLogger(GameController.class);
-	
+	private static Logger logger = LoggerFactory.getLogger(GameController.class);
+
 	private GameState gameState;
 	private Player players[] = new Player[] { new Player("", FigureType.BLACK), new Player("", FigureType.WHITE) };
 
 	/**
-	 * Inicializalja a jatekot, felkeszitve a futasra.
+	 * Inicializálja a játékot, felkészítve a futásra.
 	 * 
-	 * <p>Bekeri a ket jatekos nevet, megjeleniti a jatektablat, majd elindit egy klasszikus jatekot.
+	 * <p>
+	 * Bekéri a két játékos nevét, megjeleníti a játéktáblát, majd elindít egy
+	 * klasszikus játékot.
 	 */
 	public void start() {
 		MainFrame.getInstance().setVisible(true);
@@ -38,16 +80,17 @@ public class GameController {
 	}
 
 	/**
-	 * Befejezteti a program mukodeset
+	 * Befejezteti a program működését
 	 */
 	public void stop() {
 		System.exit(0);
 	}
 
 	/**
-	 * Hozzaad egy uj jatekost a jatekhoz a megadott nevvel az elso ures helyre.
-	 *  
-	 * @param name a jatekos neve
+	 * Hozzáad egy új játékost a játékhoz a megadott névvel az első üres helyre.
+	 * 
+	 * @param name
+	 *            a játékos neve
 	 */
 	public void addPlayer(String name) {
 		int id = -1;
@@ -65,9 +108,9 @@ public class GameController {
 	}
 
 	/**
-	 * Visszaadja a folyamatban levo jatek allasat.
+	 * Visszaadja a folyamatban lévő játék állását.
 	 * 
-	 * @return a jatek allasa
+	 * @return a játék állása
 	 * @see GameState
 	 */
 	public GameState getGameState() {
@@ -75,45 +118,52 @@ public class GameController {
 	}
 
 	/**
-	 * Visszaadja a jatekosobjektumokat.
+	 * Visszaadja a játékosobjektumokat.
 	 * 
-	 * @return jatekosok tombje
+	 * @return játékosok tömbje
 	 */
 	public Player[] getPlayers() {
 		return players;
 	}
 
 	/**
-	 * Elindit egy uj klasszikus jatekot, fekete kezdojatekossal.
+	 * Elindít egy új, klasszikus játekot, fekete kezdőjátékossal.
 	 */
 	public void newGame() {
 		newGame(new GameState(), 0);
 	}
 
 	/**
-	 * Elindit egy uj jatekot a megadott tablamerettel es fekete kezdojatekossal.
+	 * Elindít egy új játékot a megadott táblamérettel és fekete
+	 * kezdőjátékossal.
 	 * 
-	 * @param tableSize tablameret
+	 * @param tableSize
+	 *            táblaméret
 	 */
 	public void newGame(int tableSize) {
 		newGame(tableSize, 0);
 	}
 
 	/**
-	 * Elindit egy uj jatekot a megadott tablamerettel es a megadott kezdojatekossal.
+	 * Elindít egy új játékot a megadott táblamérettel és a megadott
+	 * kezdőjátékossal.
 	 * 
-	 * @param tableSize tablameret
-	 * @param startingPlayer kezdojatekos indexe
+	 * @param tableSize
+	 *            táblaméret
+	 * @param startingPlayer
+	 *            kezdőjátékos indexe
 	 */
 	public void newGame(int tableSize, int startingPlayer) {
 		newGame(new GameState(tableSize), startingPlayer);
 	}
 
 	/**
-	 * Elindit egy uj jatekot a megadott jatekallassal es kezdojatekossal.
+	 * Elindít egy új játékot a megadott játékállással és kezdőjátékossal.
 	 * 
-	 * @param gameState kezdoallas
-	 * @param startingPlayer kezdojatekos indexe
+	 * @param gameState
+	 *            kezdőállás
+	 * @param startingPlayer
+	 *            kezdőjátékos indexe
 	 */
 	public void newGame(GameState gameState, int startingPlayer) {
 		this.gameState = gameState;
@@ -139,9 +189,9 @@ public class GameController {
 
 		for (int i = 0; i < figures.length; i++) {
 			for (int j = 0; j < figures[i].length; j++) {
-				if (figures[i][j].getFigureType().equals(playerFigure)){
+				if (figures[i][j].getFigureType().equals(playerFigure)) {
 					ally++;
-				}else{
+				} else {
 					enemy++;
 				}
 			}
@@ -206,10 +256,12 @@ public class GameController {
 	}
 
 	/**
-	 * A jelenlegi jatekos lepeset hajtja vegre a tablan.
+	 * A jelenlegi játékos lépését hajtja végre a táblán.
 	 *
-	 * @param x a lerakott babu {@code X} koordinataja
-	 * @param y a lerakott babu {@code Y} koordinataja
+	 * @param x
+	 *            a lerakott bábu {@code X} koordinátája
+	 * @param y
+	 *            a lerakott bábu {@code Y} koordinátája
 	 */
 	public void move(int x, int y) {
 		FigureType playerFigure = GameController.getInstance().getGameState().getNextPlayer().getFigureType();
@@ -227,16 +279,17 @@ public class GameController {
 	}
 
 	/**
-	 * Beallitja a soron kovetkezo jatekost.
+	 * Beállítja a soron következő játékost.
 	 * 
-	 * @param playerId a kovetkezo jatekos indexe
+	 * @param playerId
+	 *            a következő játékos indexe
 	 */
 	public void setTurnPlayer(int playerId) {
 		GameController.getInstance().getGameState().setNextPlayerId(playerId);
 	}
 
 	/**
-	 * Atadja a kort a kovetkezo jatekosnak.
+	 * Átadja a kört a következő játékosnak.
 	 */
 	public void switchTurns() {
 		GameController.getInstance().getGameState()
@@ -280,7 +333,7 @@ public class GameController {
 	}
 
 	/**
-	 * Kitorli a lepesi lehetosegek listajat.
+	 * Kitörli a lépési lehetőségek listáját.
 	 */
 	public void flushChoices() {
 		Table table = GameController.getInstance().getGameState().getTable();
@@ -294,7 +347,7 @@ public class GameController {
 	}
 
 	/**
-	 * Megkeresi a lepheto mezoket es megjeloli oket.
+	 * Megkeresi a léphető mezőket és megjelöli őket.
 	 */
 	public void markChoices() {
 		Table table = GameController.getInstance().getGameState().getTable();
@@ -310,9 +363,10 @@ public class GameController {
 	}
 
 	/**
-	 * Ellenorzi, hogy a soron kovetkezo jatekosnak van-e lehetosege lepni.
+	 * Ellenőrzi, hogy a soron következő játékosnak van-e lehetősége lépni.
 	 * 
-	 * @return {@code true}, ha letezik olyan mezo, ahova a jatekos lephet, {@code false} egyebkent
+	 * @return {@code true}, ha létezik olyan mező, ahova a játékos léphet,
+	 *         {@code false} egyébként
 	 */
 	public boolean checkPlayerMoveAbility() {
 		Table table = GameController.getInstance().getGameState().getTable();
@@ -325,21 +379,21 @@ public class GameController {
 				}
 			}
 		}
-		
+
 		return false;
 	}
 
 	/**
-	 * Megkeresi, hogy melyik jatekosnak van tobb babuja a mezon.
+	 * Megkeresi, hogy melyik játékosnak van több bábuja a mezőn.
 	 * 
-	 * @return a nyertes jatekos indexe
+	 * @return a nyertes játékos indexe
 	 */
 	public int findWinner() {
 		int black = 0, white = 0;
 		Figure[][] figures = GameController.getInstance().getGameState().getTable().getFigures();
-		
+
 		for (int i = 0; i < figures.length; i++) {
-			for (int j = 0; j < figures[i].length; j++) {		
+			for (int j = 0; j < figures[i].length; j++) {
 				switch (figures[i][j].getFigureType()) {
 				case BLACK:
 					black++;
@@ -348,20 +402,21 @@ public class GameController {
 				case WHITE:
 					white++;
 					break;
-				
+
 				default:
 					break;
 				}
 			}
 		}
-		
+
 		return black > white ? 0 : 1;
 	}
 
 	/**
-	 * A mezon torteno kattintast kezeli.
+	 * A mezőn történő kattintást kezeli.
 	 * 
-	 * @param button a megnyomott gomb
+	 * @param button
+	 *            a megnyomott gomb
 	 */
 	public void handleButtonClick(FieldButton button) {
 		if (!button.isChoice()) {
@@ -372,18 +427,18 @@ public class GameController {
 		flushChoices();
 		switchTurns();
 		markChoices();
-		
+
 		if (!checkPlayerMoveAbility()) {
 			switchTurns();
 			markChoices();
 
 			if (!checkPlayerMoveAbility()) {
 				gameState.setActive(false);
-			}	
+			}
 		}
 
 		MainFrame.getInstance().updateView();
-		
+
 		if (!gameState.isActive()) {
 			gameState.setWinner(findWinner());
 			endGame();
@@ -393,9 +448,9 @@ public class GameController {
 	private static GameController instance = new GameController();
 
 	/**
-	 * Visszaadja a jatekvezerlo objektumot.
+	 * Visszaadja a játékvezérlő objektumot.
 	 * 
-	 * @return a vezerlo peldany
+	 * @return a vezérlő példány
 	 */
 	public static GameController getInstance() {
 		return instance;

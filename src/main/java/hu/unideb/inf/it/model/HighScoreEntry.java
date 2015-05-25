@@ -1,7 +1,7 @@
 package hu.unideb.inf.it.model;
 
 /**
- * A ranglista egy bejegyzeset reprezentalo osztaly.
+ * A ranglista egy bejegyzését reprezentáló osztály.
  * 
  * @author Andi
  *
@@ -13,76 +13,76 @@ public class HighScoreEntry {
 	private Float bestScore;
 	
 	/**
-	 * Lekeri a jatekos nevet.
+	 * Lekéri a játékos nevét.
 	 * 
-	 * @return a jatekos neve
+	 * @return a játékos neve
 	 */
 	public String getName() {
 		return name;
 	}
 	/**
-	 * Beallitja a bejegyzesben levo jatekos nevet.
+	 * Beállítja a bejegyzésben lévő játékos nevét.
 	 * 
-	 * @param name a jatekos neve
+	 * @param name a játékos neve
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	/**
-	 * Visszaadja a nyertes jatszmak szamat.
+	 * Visszaadja a nyertes jászmák számát.
 	 * 
-	 * @return nyertes jatszmak szama
+	 * @return nyertes jászmák száma
 	 */
 	public Integer getWins() {
 		return wins;
 	}
 	/**
-	 * Beallitja a nyertes jatszmak szamat.
+	 * Beállítja a nyertes jászmák számát.
 	 * 
-	 * @param wins a nyertes jatszmak szama
+	 * @param wins a nyertes jászmák száma
 	 */
 	public void setWins(Integer wins) {
 		this.wins = wins;
 	}
 	/**
-	 * Lekeri a vesztes jatszmak szamat.
+	 * Lekéri a vesztes jászmák számát.
 	 * 
-	 * @return a vesztes jatszmak szama
+	 * @return a vesztes jászmák száma
 	 */
 	public Integer getLosses() {
 		return losses;
 	}
 	/**
-	 * Beallitja a vesztes jatszmak szamat.
+	 * Beállítja a vesztes jászmák számát.
 	 * 
-	 * @param losses a vesztes jatszmak szama
+	 * @param losses a vesztes jászmák száma
 	 */
 	public void setLosses(Integer losses) {
 		this.losses = losses;
 	}
 	/**
-	 * Lekeri a jatekos legjobb eredmenyt.
+	 * Lekéri a játékos legjobb eredményt.
 	 * 
-	 * @return a legjobb eredmeny
+	 * @return a legjobb eredmény
 	 */
 	public Float getBestScore() {
 		return bestScore;
 	}
 	/**
-	 * Beallitja a jatekos legjobb eredmenyet.
+	 * Beállítja a játékos legjobb eredményét.
 	 * 
-	 * @param bestScore a jatekos legjobb eredmenye
+	 * @param bestScore a játékos legjobb eredménye
 	 */
 	public void setBestScore(Float bestScore) {
 		this.bestScore = bestScore;
 	}
 	/**
-	 * Letrehoz egy uj ranglistabejegyzest a megadott parameterekkel.
+	 * Létrehoz egy új ranglistabejegyzést a megadott paraméterekkel.
 	 * 
-	 * @param name a jatekos neve
-	 * @param wins a jatekos nyertes jatszmainak szama
-	 * @param losses a jatekos vesztett jatszmainak szama
-	 * @param bestScore a jatekos legjobb eredmenye
+	 * @param name a játékos neve
+	 * @param wins a játékos nyertes jászmáinak száma
+	 * @param losses a játékos vesztett jászmáinak száma
+	 * @param bestScore a játékos legjobb eredménye
 	 */
 	public HighScoreEntry(String name, Integer wins, Integer losses,
 			Float bestScore) {
@@ -93,7 +93,7 @@ public class HighScoreEntry {
 		this.bestScore = bestScore;
 	}
 	/**
-	 * Letrehoz egy uj ures ranglistabejegyzest.
+	 * Létrehoz egy új üres ranglistabejegyzést.
 	 */
 	public HighScoreEntry() {
 		super();

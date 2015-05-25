@@ -1,7 +1,7 @@
 package hu.unideb.inf.it.controller;
 
 /**
- * A jatekot elindito osztaly, amely tartalmazza a belepesi pontot a Java virtualis gep szamara.
+ * A játékot elindító osztály, amely tartalmazza a belépési pontot a Java virtuális gép számára.
  * 
  * @author Andi
  *
@@ -9,7 +9,7 @@ package hu.unideb.inf.it.controller;
 public class Main {
 
 	/**
-	 * Az alkalmazas belepesi pontja.
+	 * Az alkalmazás belépési pontja.
 	 * 
 	 * @param args a parancssori argumentumok
 	 */

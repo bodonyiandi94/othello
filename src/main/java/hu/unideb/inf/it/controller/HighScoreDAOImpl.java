@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A ranglistaadatbazis kezeleset biztosito osztaly.
+ * A ranglistaadatbázis kezelését biztosító osztály.
  * 
  * @author Andi
  *
@@ -226,9 +226,9 @@ public class HighScoreDAOImpl implements HighScoreDAO {
 	private static HighScoreDAOImpl instance = new HighScoreDAOImpl();
 
 	/**
-	 * Visszaadja az adatbazis-kezelo peldanyt.
+	 * Visszaadja az adatbázis-kezelő példányt.
 	 * 
-	 * @return a kapcsolatot megvalosito objektumot
+	 * @return a kapcsolatot megvalósító objektum
 	 */
 	public static HighScoreDAOImpl getInstance() {
 		return instance;

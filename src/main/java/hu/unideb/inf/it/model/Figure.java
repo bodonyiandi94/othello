@@ -1,7 +1,7 @@
 package hu.unideb.inf.it.model;
 
 /**
- * Egy, a mezore helyezheto babut leiro objektum.
+ * Egy, a mezőre helyezhető bábut leíró objektum.
  * 
  * @author Andi
  *
@@ -10,34 +10,34 @@ public class Figure {
 	FigureType figureType = FigureType.NONE;
 	
 	/**
-	 * Visszaadja a figura tipusat.
+	 * Visszaadja a figura típusát.
 	 * 
-	 * @return a figura tipusa
+	 * @return a figura típusa
 	 */
 	public FigureType getFigureType() {
 		return figureType;
 	}
 	
 	/**
-	 * Beallitja a babu tipusat.
+	 * Beállítja a bábu típusát.
 	 * 
-	 * @param figureType a figura tipusa
+	 * @param figureType a figura típusa
 	 */
 	public void setFigureType(FigureType figureType) {
 		this.figureType = figureType;
 	}
 	
 	/**
-	 * Letrehoz egy uj ures mezot.
+	 * Létrehoz egy új üres mezőt.
 	 */
 	public Figure() {
 		
 	}
 
 	/**
-	 * Letrehoz egy uj babut a megadott tipussal
+	 * Létrehoz egy új bábut a megadott típussal
 	 * 
-	 * @param figureType a figura tipusa
+	 * @param figureType a figura típusa
 	 */
 	public Figure(FigureType figureType) {
 		super();

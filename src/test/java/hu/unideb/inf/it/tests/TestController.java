@@ -12,7 +12,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * A jatekot vezerlo osztalyhoz tartozo tesztesetek.
+ * A játékvezerlő osztályhoz tartozó tesztesetek.
  * 
  * @see GameController
  * @author Andi
@@ -20,14 +20,14 @@ import static org.junit.Assert.*;
  */
 public class TestController {
 
-	//TODO teszt a jatek vegere
+	//TODO teszt a játék vegere
 	//TODO teszt arra, amikor senki se tud lepni
 	//TODO teszt arra, amikor olyan gombra kattint, amire nem lehet lepni
 	//TODO teszt arra, amikor a mezon kivulre lehetne lepni
 	
 	@Test
 	/**
-	 * A figurak forgatasanak tesztelese.
+	 * A figurák forgatásának tesztelése.
 	 */
 	public void testFigureFlipping() {
 		GameState stateBefore = new GameState();
@@ -49,7 +49,7 @@ public class TestController {
 
 	@Test
 	/**
-	 * A korok valtasanak tesztelese.
+	 * A körök váltásának tesztelése.
 	 */
 	public void testTurnSwitch() {
 		GameController.getInstance().newGame(4, 0);
@@ -70,7 +70,7 @@ public class TestController {
 
 	@Test
 	/**
-	 * A javaslatok kiosztasanak tesztelese.
+	 * A javaslatok kiosztásának tesztelése.
 	 * 
 	 */
 	public void testChoiceManagement() {
@@ -98,7 +98,7 @@ public class TestController {
 
 	@Test
 	/**
-	 * A jatekos mozgasi kepessegeinek meghatarozasanak tesztelese.
+	 * A játékos mozgási képességeinek meghatározásának tesztelése.
 	 */
 	public void testPlayerMoveAbility() {
 		GameController.getInstance().newGame(4, 0);
@@ -118,7 +118,7 @@ public class TestController {
 
 	@Test
 	/**
-	 * Teszteset a nyertes jatekos meghatarozasara.
+	 * Teszteset a nyertes játékos meghatározására.
 	 */
 	public void testFindWinner() {
 		GameController.getInstance().newGame(8, 0);
