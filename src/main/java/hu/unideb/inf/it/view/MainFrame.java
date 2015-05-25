@@ -20,8 +20,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1917452349263691833L;
+	
+	private static Logger logger = LoggerFactory
+			.getLogger(MainFrame.class);
 
 	private static final int HEADER_HEIGHT = 30;
 	private static final int WIDTH = 750;
@@ -48,6 +54,7 @@ public class MainFrame extends JFrame {
 	}
 
 	private void init() {
+		logger.info("Initializing main frame");
 		setTitle(TITLE);
 		setSize(WIDTH, HEIGHT + HEADER_HEIGHT);
 		setLocationRelativeTo(null);
@@ -105,9 +112,12 @@ public class MainFrame extends JFrame {
 		gameMenu.add(menuItems[2]);
 		menuBar.add(gameMenu);
 		setJMenuBar(menuBar);
+		
+		logger.info("Main frame successfully initialized");
 	}
 
 	public void initTable(GameState gameState) {
+		logger.info("Setting up main frame to display a table of size " + gameState.getTable().getTableSize());
 		tablePanel.removeAll();
 
 		this.gameState = gameState;
@@ -131,29 +141,39 @@ public class MainFrame extends JFrame {
 		}
 
 		updateView();
+		
+		logger.info("Display set up successful");
 	}
 
 	public String getPlayerName(int playerId) {
+		logger.info("Querying the nem of player #" + (playerId+1));
 		PlayerNameDialog inputField = new PlayerNameDialog(playerId);
+		logger.info("The queried name of player #" + (playerId+1) + " is " + inputField.getResult());
 		return inputField.getResult();
 	}
 	
 	public void showHighScoreWindow(List<HighScoreEntry> entries){
+		logger.info("Showing highscore window");
 		HighScoreWindow window=new HighScoreWindow(this, entries);
-
+		
 		window.setVisible(true);
 	}
 
 	public int getTableSize() {
+		logger.info("Querying tablesize for new game");
+		
 		NewGameDialog inputField = new NewGameDialog();
 		return inputField.getResult();
 	}
 	
 	public void showVictoryDialog(int playerId){
+		logger.info("Displaying victory dialog, winner is player #" + (playerId+1));
+		
 		new VictoryDialog(playerId);
 	}
 
 	public void updateView() {
+		logger.info("Updating main frame...");
 		for (int i = 0; i < this.buttons.length; i++) {
 			for (int j = 0; j < this.buttons[i].length; j++) {
 				this.buttons[i][j].setFigureType(gameState.getTable()
@@ -168,6 +188,8 @@ public class MainFrame extends JFrame {
 
 		getContentPane().validate();
 		getContentPane().repaint();
+		
+		logger.info("Main frame updated");
 	}
 
 	/**

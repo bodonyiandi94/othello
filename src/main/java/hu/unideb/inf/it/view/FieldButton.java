@@ -14,9 +14,15 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class FieldButton extends JButton implements ActionListener {
 
 	private static final long serialVersionUID = 2647873936363467778L;
+
+	private static Logger logger = LoggerFactory
+			.getLogger(FieldButton.class);
 	
 	static Color NON_CHOICE_COLOR = new Color(0.0f, 0.0f, 0.0f);
 	static Color CHOICE_COLOR = new Color(0.7f, 0.1f, 0.1f);
@@ -24,13 +30,16 @@ public class FieldButton extends JButton implements ActionListener {
 
 	static {
 		try {
+			logger.info("Loading field textures");
 			BLACK_ICON = new ImageIcon(ImageIO.read(Main.class.getClassLoader()
 					.getResource(FigureType.BLACK.getTexturePath())));
 			WHITE_ICON = new ImageIcon(ImageIO.read(Main.class.getClassLoader()
 					.getResource(FigureType.WHITE.getTexturePath())));
 			EMPTY_ICON = new ImageIcon(ImageIO.read(Main.class.getClassLoader()
 					.getResource(FigureType.NONE.getTexturePath())));
+			logger.info("Texture successfully loaded");
 		} catch (IOException ex) {
+			logger.error(ex.getMessage(),ex);
 		}
 	}
 

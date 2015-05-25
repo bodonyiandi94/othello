@@ -9,6 +9,9 @@ import hu.unideb.inf.it.model.Table;
 import hu.unideb.inf.it.view.FieldButton;
 import hu.unideb.inf.it.view.MainFrame;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * A jateklogikat megvalosito osztaly.
  * 
@@ -16,6 +19,9 @@ import hu.unideb.inf.it.view.MainFrame;
  *
  */
 public class GameController {
+	private static Logger logger = LoggerFactory
+			.getLogger(GameController.class);
+	
 	private GameState gameState;
 	private Player players[] = new Player[] { new Player("", FigureType.BLACK), new Player("", FigureType.WHITE) };
 

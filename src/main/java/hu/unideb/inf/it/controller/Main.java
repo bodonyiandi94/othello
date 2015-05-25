@@ -1,6 +1,5 @@
 package hu.unideb.inf.it.controller;
 
-
 /**
  * A jatekot elindito osztaly, amely tartalmazza a belepesi pontot a Java virtualis gep szamara.
  * 

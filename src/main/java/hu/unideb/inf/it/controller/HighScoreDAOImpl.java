@@ -130,6 +130,7 @@ public class HighScoreDAOImpl implements HighScoreDAO {
 			connection = DriverManager.getConnection(
 					"jdbc:oracle:thin:@db.inf.unideb.hu:1521:ora11g",
 					"H_SFBAQU", "kassai");
+			logger.info("Connection successfully opened");
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -141,6 +142,7 @@ public class HighScoreDAOImpl implements HighScoreDAO {
 		try {
 			logger.info("Preparing statement");
 			statement = connection.prepareStatement(sql);
+			logger.info("Statement prepared without errors");
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -152,6 +154,7 @@ public class HighScoreDAOImpl implements HighScoreDAO {
 		try {
 			logger.info("Executing insert/update/delete statement");
 			result = statement.execute();
+			logger.info("Statement successfully executed with result " + result);
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -163,6 +166,7 @@ public class HighScoreDAOImpl implements HighScoreDAO {
 		try {
 			logger.info("Executing select statement");
 			result = statement.executeQuery();
+			logger.info("Query successfully executed");
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -172,6 +176,7 @@ public class HighScoreDAOImpl implements HighScoreDAO {
 	private List<HighScoreEntry> convertResultSet(ResultSet rs) {
 		List<HighScoreEntry> result = new ArrayList<HighScoreEntry>();
 		try {
+			logger.info("Extracting the result of a previous query");
 			while (rs.next()) {
 				HighScoreEntry entry = new HighScoreEntry();
 				entry.setName(rs.getString(1));
@@ -180,6 +185,7 @@ public class HighScoreDAOImpl implements HighScoreDAO {
 				entry.setBestScore(rs.getFloat(4));
 				result.add(entry);
 			}
+			logger.info(result.size() + " entries exracted");
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -191,6 +197,7 @@ public class HighScoreDAOImpl implements HighScoreDAO {
 		try {
 			logger.info("Closing statement");
 			statement.close();
+			logger.info("Statement closed");
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -200,6 +207,7 @@ public class HighScoreDAOImpl implements HighScoreDAO {
 		try {
 			logger.info("Closing connection");
 			connection.close();
+			logger.info("Connection closed");
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -209,6 +217,7 @@ public class HighScoreDAOImpl implements HighScoreDAO {
 		try {
 			logger.info("Registering Oracle driver");
 			DriverManager.registerDriver(new OracleDriver());
+			logger.info("Driver successfully registered");
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
 		}
