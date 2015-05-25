@@ -1,7 +1,5 @@
 package hu.unideb.inf.it.controller;
 
-import java.awt.event.ActionListener;
-
 import hu.unideb.inf.it.model.Figure;
 import hu.unideb.inf.it.model.FigureType;
 import hu.unideb.inf.it.model.GameState;
@@ -10,6 +8,8 @@ import hu.unideb.inf.it.model.Player;
 import hu.unideb.inf.it.model.Table;
 import hu.unideb.inf.it.view.FieldButton;
 import hu.unideb.inf.it.view.MainFrame;
+
+import java.awt.event.ActionListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,16 +73,19 @@ public class GameController {
 	 * klasszikus játékot.
 	 */
 	public void start() {
+		logger.info("Game starts...");
 		MainFrame.getInstance().setVisible(true);
 		addPlayer(MainFrame.getInstance().getPlayerName(0));
 		addPlayer(MainFrame.getInstance().getPlayerName(1));
 		newGame();
+		logger.info("Game has started successfully");
 	}
 
 	/**
 	 * Befejezteti a program működését
 	 */
 	public void stop() {
+		logger.info("Shutting down...");
 		System.exit(0);
 	}
 
@@ -93,6 +96,7 @@ public class GameController {
 	 *            a játékos neve
 	 */
 	public void addPlayer(String name) {
+		logger.info("Adding a new player");
 		int id = -1;
 		for (int i = 0; i < 2; i++) {
 			if (players[i].getName().equals("")) {
@@ -102,9 +106,11 @@ public class GameController {
 		}
 
 		if (id == -1) {
-			throw new RuntimeException("mar megvan a ket jatekos");
+			logger.warn("Attempt to register more than two players");
+			throw new RuntimeException("There are already two players in game");
 		}
 		players[id].setName(name);
+		logger.info("A player has been added");
 	}
 
 	/**
@@ -166,6 +172,8 @@ public class GameController {
 	 *            kezdőjátékos indexe
 	 */
 	public void newGame(GameState gameState, int startingPlayer) {
+		logger.info("Starting a new game with " + startingPlayer + " starting player and " 
+	+ gameState.getTable().getTableSize() + " table size");
 		this.gameState = gameState;
 		this.gameState.setPlayer(0, players[0]);
 		this.gameState.setPlayer(1, players[1]);
@@ -174,15 +182,20 @@ public class GameController {
 		MainFrame.getInstance().initTable(gameState);
 
 		markChoices();
+		logger.info("New game has successfully started");
 	}
 
 	private void endGame() {
+		logger.info("Updating the highscore database");
 		updateHighScoreEntry(players[0]);
 		updateHighScoreEntry(players[1]);
+		logger.info("Showing the victory dialog");
 		MainFrame.getInstance().showVictoryDialog(gameState.getWinner());
+		logger.info("Game has been successfully ended");
 	}
 
 	private void updateHighScoreEntry(Player player) {
+		logger.info("Updating a highscore entry");
 		FigureType playerFigure = player.getFigureType();
 		Figure[][] figures = gameState.getTable().getFigures();
 		int ally = 0, enemy = 0;
@@ -215,11 +228,14 @@ public class GameController {
 		}
 
 		HighScoreDAOImpl.getInstance().updateEntry(entry);
+		
+		logger.info("Highscore entry has successfully been updated");
 	}
 
 	private void flipFigures(FigureType playerFigure, int x, int y, int dirX, int dirY) {
+		logger.info("Flipping the figures...");
 		final int originalX = x, originalY = y;
-		Table table = GameController.getInstance().getGameState().getTable();
+		Table table = gameState.getTable();
 		boolean flip = false;
 
 		while (true) {
@@ -251,8 +267,11 @@ public class GameController {
 
 			if (table.getFigures()[x][y].getFigureType().equals(playerFigure))
 				break;
+			logger.info("Flipping figure at (" + x + ", " + y + ")");
 			table.getFigures()[x][y].setFigureType(playerFigure);
 		}
+		
+		logger.info("Figures have been flipped");
 	}
 
 	/**
@@ -263,10 +282,10 @@ public class GameController {
 	 * @param y
 	 *            a lerakott bábu {@code Y} koordinátája
 	 */
-	public void move(int x, int y) {
-		FigureType playerFigure = GameController.getInstance().getGameState().getNextPlayer().getFigureType();
+	public void move(int x, int y) {		
+		FigureType playerFigure = gameState.getNextPlayer().getFigureType();
 
-		GameController.getInstance().getGameState().getTable().getFigures()[x][y].setFigureType(playerFigure);
+		gameState.getTable().getFigures()[x][y].setFigureType(playerFigure);
 
 		flipFigures(playerFigure, x, y, -1, -1);
 		flipFigures(playerFigure, x, y, 0, -1);
@@ -285,19 +304,25 @@ public class GameController {
 	 *            a következő játékos indexe
 	 */
 	public void setTurnPlayer(int playerId) {
-		GameController.getInstance().getGameState().setNextPlayerId(playerId);
+		logger.info("Setting turn player to the player with the " + playerId + "id");
+		gameState.setNextPlayerId(playerId);
+		logger.info("Turn player successfully set");
 	}
 
 	/**
 	 * Átadja a kört a következő játékosnak.
 	 */
 	public void switchTurns() {
-		GameController.getInstance().getGameState()
-				.setNextPlayerId(1 - GameController.getInstance().getGameState().getNextPlayerId());
+		logger.info("Switching turns");
+		gameState
+				.setNextPlayerId(1 - gameState.getNextPlayerId());
+		logger.info("Turns switched, current player is " + gameState.getNextPlayerId());
 	}
 
 	private void findValidField(FigureType playerFigure, int x, int y, int dirX, int dirY) {
-		Table table = GameController.getInstance().getGameState().getTable();
+		logger.info("Looking for choices starting at (" + x + ", " + y + ")");
+		
+		Table table = gameState.getTable();
 		boolean enemyFound = false;
 
 		while (true) {
@@ -310,6 +335,9 @@ public class GameController {
 
 			if (table.getFigures()[x][y].getFigureType().equals(FigureType.NONE)) {
 				if (enemyFound) {
+					if(!MainFrame.getInstance().getButtons()[x][y].isChoice()){
+						logger.info("Found a new valid field at (" + x + ", " + y + ")");
+					}
 					MainFrame.getInstance().getButtons()[x][y].setChoice(true);
 				}
 				break;
@@ -319,6 +347,7 @@ public class GameController {
 				break;
 			}
 		}
+		logger.info("All choices were found for the given field");
 	}
 
 	private void findValidFields(FigureType playerFigure, int x, int y) {
@@ -336,7 +365,9 @@ public class GameController {
 	 * Kitörli a lépési lehetőségek listáját.
 	 */
 	public void flushChoices() {
-		Table table = GameController.getInstance().getGameState().getTable();
+		logger.info("Flushing move choices");
+		
+		Table table = gameState.getTable();
 		FieldButton[][] buttons = MainFrame.getInstance().getButtons();
 
 		for (int i = 0; i < table.getTableSize(); i++) {
@@ -344,14 +375,16 @@ public class GameController {
 				buttons[i][j].setChoice(false);
 			}
 		}
+		
+		logger.info("Choices successfully flushed");
 	}
 
 	/**
 	 * Megkeresi a léphető mezőket és megjelöli őket.
 	 */
 	public void markChoices() {
-		Table table = GameController.getInstance().getGameState().getTable();
-		FigureType playerFigure = GameController.getInstance().getGameState().getNextPlayer().getFigureType();
+		Table table = gameState.getTable();
+		FigureType playerFigure = gameState.getNextPlayer().getFigureType();
 
 		for (int i = 0; i < table.getTableSize(); i++) {
 			for (int j = 0; j < table.getTableSize(); j++) {
@@ -369,17 +402,20 @@ public class GameController {
 	 *         {@code false} egyébként
 	 */
 	public boolean checkPlayerMoveAbility() {
-		Table table = GameController.getInstance().getGameState().getTable();
+		logger.info("Checking if player " + gameState.getNextPlayerId() + " can move");
+		
+		Table table = gameState.getTable();
 		FieldButton[][] buttons = MainFrame.getInstance().getButtons();
 
 		for (int i = 0; i < table.getTableSize(); i++) {
 			for (int j = 0; j < table.getTableSize(); j++) {
 				if (buttons[i][j].isChoice()) {
+					logger.info("Player can move");
 					return true;
 				}
 			}
 		}
-
+		logger.info("Player cannot move");
 		return false;
 	}
 
@@ -389,27 +425,14 @@ public class GameController {
 	 * @return a nyertes játékos indexe
 	 */
 	public int findWinner() {
-		int black = 0, white = 0;
-		Figure[][] figures = GameController.getInstance().getGameState().getTable().getFigures();
-
-		for (int i = 0; i < figures.length; i++) {
-			for (int j = 0; j < figures[i].length; j++) {
-				switch (figures[i][j].getFigureType()) {
-				case BLACK:
-					black++;
-					break;
-
-				case WHITE:
-					white++;
-					break;
-
-				default:
-					break;
-				}
-			}
-		}
-
-		return black > white ? 0 : 1;
+		logger.info("Determining the winner");
+		
+		int black = gameState.getTable().countFigures(FigureType.BLACK), 
+				white = gameState.getTable().countFigures(FigureType.WHITE);
+		
+		int winner = black > white ? 0 : 1;
+		logger.info("The winner is player " + winner);
+		return winner;
 	}
 
 	/**
@@ -419,28 +442,39 @@ public class GameController {
 	 *            a megnyomott gomb
 	 */
 	public void handleButtonClick(FieldButton button) {
+		logger.info("Handling button click");
 		if (!button.isChoice()) {
+			logger.info("Attempt to move to a field where the player cannot move");
 			return;
 		}
 
+		logger.info("Flipping figures...");
 		move(button.getFieldX(), button.getFieldY());
+		logger.info("Flushing choices");
 		flushChoices();
+		logger.info("Switching turns");
 		switchTurns();
+		logger.info("Marking choices");
 		markChoices();
 
 		if (!checkPlayerMoveAbility()) {
+			logger.info("The player cannot move - switching the turn back to the previous player");
 			switchTurns();
 			markChoices();
 
 			if (!checkPlayerMoveAbility()) {
+				logger.info("No more available moves left, ending game");
 				gameState.setActive(false);
 			}
 		}
 
+		logger.info("Updating view");
 		MainFrame.getInstance().updateView();
-
+		
 		if (!gameState.isActive()) {
+			logger.info("Determining the winner");
 			gameState.setWinner(findWinner());
+			logger.info("Ending the game");
 			endGame();
 		}
 	}

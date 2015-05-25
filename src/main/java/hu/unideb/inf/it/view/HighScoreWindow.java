@@ -21,13 +21,13 @@ public class HighScoreWindow extends JDialog {
 
 	public HighScoreWindow(JFrame frame, List<HighScoreEntry> entries) {
 		super(frame, true);
-		setTitle("HighScore");
+		setTitle("Ranglista");
 		setSize(400, 500);
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		String[] columnNames = { "#", "Nev", "Gyozelem", "Vereseg",
-				"Legjobb eredmeny" };
+		String[] columnNames = { "#", "Név", "Győzelem", "Vereség",
+				"Legjobb eredmény" };
 		Object[][] data = new Object[10][5];
 		for (int i = 0; i < 10; i++) {
 			data[i][0] = (i + 1) + ".";

@@ -15,9 +15,10 @@ public class VictoryDialog {
 	private void showInputDialog(int playerId) {
 		String[] options = { "OK" };
 		JPanel panel = new JPanel();
-		JLabel lbl = new JLabel("A jateknak vege! " + GameController.getInstance().getPlayers()[playerId].getName() + " nyerte a jatekot.");
+		JLabel lbl = new JLabel("A játéknak vége! " + GameController.getInstance().getPlayers()[playerId].getName()
+				+ " nyerte a játékot.");
 		panel.add(lbl);
-		JOptionPane.showOptionDialog(null, panel, "Jatek vege",
-				JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+		JOptionPane.showOptionDialog(null, panel, "Játék vége", JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+				options, options[0]);
 	}
 }

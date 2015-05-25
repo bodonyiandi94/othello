@@ -2,8 +2,10 @@ package hu.unideb.inf.it.view;
 
 import hu.unideb.inf.it.controller.GameController;
 import hu.unideb.inf.it.controller.HighScoreDAOImpl;
+import hu.unideb.inf.it.model.FigureType;
 import hu.unideb.inf.it.model.GameState;
 import hu.unideb.inf.it.model.HighScoreEntry;
+import hu.unideb.inf.it.model.Player;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -25,9 +27,8 @@ import org.slf4j.LoggerFactory;
 
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1917452349263691833L;
-	
-	private static Logger logger = LoggerFactory
-			.getLogger(MainFrame.class);
+
+	private static Logger logger = LoggerFactory.getLogger(MainFrame.class);
 
 	private static final int HEADER_HEIGHT = 30;
 	private static final int WIDTH = 750;
@@ -43,7 +44,7 @@ public class MainFrame extends JFrame {
 	private JTextArea[] playerNames = new JTextArea[2];
 	private FieldButton[][] buttons;
 	private JMenuBar menuBar = new JMenuBar();
-	private JMenu gameMenu = new JMenu("Jatek");
+	private JMenu gameMenu = new JMenu("Játék");
 	private JMenuItem[] menuItems = new JMenuItem[3];
 
 	/**
@@ -73,8 +74,7 @@ public class MainFrame extends JFrame {
 			playerNames[i].setEditable(false);
 			playerNames[i].setForeground(Color.BLUE);
 			playerNames[i].setBackground(new Color(0, 0, 0, 0));
-			namesPanel.add(playerNames[i], (i == 0 ? BorderLayout.WEST
-					: BorderLayout.EAST));
+			namesPanel.add(playerNames[i], (i == 0 ? BorderLayout.WEST : BorderLayout.EAST));
 		}
 		add(namesPanel, BorderLayout.NORTH);
 
@@ -82,15 +82,15 @@ public class MainFrame extends JFrame {
 		tablePanel.setBackground(new Color(0, 0, 0, 0));
 		add(tablePanel, BorderLayout.CENTER);
 
-		menuItems[0] = new JMenuItem("Uj jatek");
+		menuItems[0] = new JMenuItem("Új játék");
 		menuItems[0].addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				GameController.getInstance().newGame(getTableSize());
-				
+
 			}
 		});
-		
+
 		menuItems[1] = new JMenuItem("Ranglista");
 		menuItems[1].addActionListener(new ActionListener() {
 			@Override
@@ -98,10 +98,10 @@ public class MainFrame extends JFrame {
 				MainFrame.getInstance().showHighScoreWindow(HighScoreDAOImpl.getInstance().getBestEntries(10));
 			}
 		});
-		
-		menuItems[2] = new JMenuItem("Kilepes");
+
+		menuItems[2] = new JMenuItem("Kilépés");
 		menuItems[2].addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				GameController.getInstance().stop();
@@ -112,7 +112,7 @@ public class MainFrame extends JFrame {
 		gameMenu.add(menuItems[2]);
 		menuBar.add(gameMenu);
 		setJMenuBar(menuBar);
-		
+
 		logger.info("Main frame successfully initialized");
 	}
 
@@ -123,8 +123,7 @@ public class MainFrame extends JFrame {
 		this.gameState = gameState;
 
 		for (int i = 0; i < 2; i++) {
-			playerNames[i].setText(gameState.getPlayers()[i].getName() + " ("
-					+ (i == 0 ? "fekete" : "feher") + ")");
+			playerNames[i].setText(gameState.getPlayers()[i].getName() + " (" + (i == 0 ? "fekete" : "feher") + ")");
 		}
 
 		int tableSize = gameState.getTable().getTableSize();
@@ -141,54 +140,77 @@ public class MainFrame extends JFrame {
 		}
 
 		updateView();
-		
+
 		logger.info("Display set up successful");
 	}
 
 	public String getPlayerName(int playerId) {
-		logger.info("Querying the nem of player #" + (playerId+1));
+		logger.info("Querying the nem of player #" + (playerId + 1));
 		PlayerNameDialog inputField = new PlayerNameDialog(playerId);
-		logger.info("The queried name of player #" + (playerId+1) + " is " + inputField.getResult());
+		logger.info("The queried name of player #" + (playerId + 1) + " is " + inputField.getResult());
 		return inputField.getResult();
 	}
-	
-	public void showHighScoreWindow(List<HighScoreEntry> entries){
+
+	public void showHighScoreWindow(List<HighScoreEntry> entries) {
 		logger.info("Showing highscore window");
-		HighScoreWindow window=new HighScoreWindow(this, entries);
-		
+		HighScoreWindow window = new HighScoreWindow(this, entries);
+
 		window.setVisible(true);
 	}
 
 	public int getTableSize() {
 		logger.info("Querying tablesize for new game");
-		
+
 		NewGameDialog inputField = new NewGameDialog();
 		return inputField.getResult();
 	}
-	
-	public void showVictoryDialog(int playerId){
-		logger.info("Displaying victory dialog, winner is player #" + (playerId+1));
-		
+
+	public void showVictoryDialog(int playerId) {
+		logger.info("Displaying victory dialog, winner is player #" + (playerId + 1));
+
 		new VictoryDialog(playerId);
 	}
 
+	private String getPlayerDisplayName(int playerId){
+		StringBuilder sb=new StringBuilder();
+		Player player = gameState.getPlayers()[playerId];
+		FigureType figureType=player.getFigureType();
+		
+		sb.append(player.getName());
+		sb.append(" (");
+		if (figureType.equals(FigureType.BLACK)){
+			sb.append("fekete");
+		}else{
+			sb.append("fehér");
+		}
+		
+		sb.append(") (");
+		sb.append(gameState.getTable().countFigures(figureType));
+		sb.append(")");
+		
+		return sb.toString();
+	}
+	
 	public void updateView() {
 		logger.info("Updating main frame...");
 		for (int i = 0; i < this.buttons.length; i++) {
 			for (int j = 0; j < this.buttons[i].length; j++) {
-				this.buttons[i][j].setFigureType(gameState.getTable()
-						.getFigures()[i][j].getFigureType());
+				this.buttons[i][j].setFigureType(gameState.getTable().getFigures()[i][j].getFigureType());
 				this.buttons[i][j].validate();
 				this.buttons[i][j].repaint();
 			}
 		}
-		
-		this.playerNames[gameState.getNextPlayerId()].setFont(BOLD_FONT);
-		this.playerNames[1-gameState.getNextPlayerId()].setFont(NORMAL_FONT);
+
+		int currentPlayer = gameState.getNextPlayerId(), prevPlayer = 1 - currentPlayer;
+
+		this.playerNames[currentPlayer].setText(getPlayerDisplayName(currentPlayer));
+		this.playerNames[currentPlayer].setFont(BOLD_FONT);
+		this.playerNames[prevPlayer].setText(getPlayerDisplayName(prevPlayer));
+		this.playerNames[prevPlayer].setFont(NORMAL_FONT);
 
 		getContentPane().validate();
 		getContentPane().repaint();
-		
+
 		logger.info("Main frame updated");
 	}
 

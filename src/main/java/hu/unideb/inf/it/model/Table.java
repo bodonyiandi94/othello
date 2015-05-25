@@ -9,6 +9,24 @@ package hu.unideb.inf.it.model;
 public class Table {
 	private Figure[][] figures;
 	private int tableSize;
+	
+	/**
+	 * Megszámolja a táblán az adott típusú mezőket.
+	 * 
+	 * @param figureType a számolandó mezők típusa
+	 * @return az adott típusú mezők darabszámát a táblán
+	 */
+	public int countFigures(FigureType figureType){
+		int count = 0;
+		for (int i = 0; i < figures.length; i++) {
+			for (int j = 0; j < figures[i].length; j++) {
+				if (figures[i][j].getFigureType().equals(figureType)){
+					count++;
+				}
+			}
+		}
+		return count;
+	}
 
 	/**
 	 * Létrehoz egy új, klasszikus méretű játéktáblát.

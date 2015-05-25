@@ -7,7 +7,7 @@ package hu.unideb.inf.it.model;
  *
  */
 public class Figure {
-	FigureType figureType = FigureType.NONE;
+	private FigureType figureType = FigureType.NONE;
 	
 	/**
 	 * Visszaadja a figura típusát.

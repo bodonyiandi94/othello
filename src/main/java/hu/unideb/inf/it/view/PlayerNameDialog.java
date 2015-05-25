@@ -22,13 +22,13 @@ public class PlayerNameDialog {
 	private void showInputDialog(int playerId) {
 		String[] options = { "OK" };
 		JPanel panel = new JPanel();
-		JLabel lbl = new JLabel((playerId == 0 ? "Kerem az elso jatekos nevet:"
-				: "Kerem a masodik jatekos nevet:"));
-		JTextField txt = new JTextField("Jatekos " + (playerId+1), 20);
+		JLabel lbl = new JLabel((playerId == 0 ? "Kérem az első játékos nevét:"
+				: "Kérem a második játékos nevét:"));
+		JTextField txt = new JTextField("Játékos " + (playerId+1), 20);
 		panel.add(lbl);
 		panel.add(txt);
 		int selectedOption = JOptionPane.showOptionDialog(null, panel,
-				(playerId == 0 ? "Elso jatekos" : "Masodik jatekos"),
+				(playerId == 0 ? "Első játékos" : "Második játékos"),
 				JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null,
 				options, options[0]);
 
