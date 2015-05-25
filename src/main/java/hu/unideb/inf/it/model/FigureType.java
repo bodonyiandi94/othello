@@ -8,17 +8,17 @@ package hu.unideb.inf.it.model;
  */
 public enum FigureType {
 	/**
-	 * Fekete színű bábu
+	 * Fekete színű bábu.
 	 */
 	BLACK("figure_black.png"), 
 	
 	/**
-	 * Fehér színű bábu
+	 * Fehér színű bábu.
 	 */
 	WHITE("figure_white.png"), 
 	
 	/**
-	 * Üres mező
+	 * Üres mező.
 	 */
 	NONE("figure_empty.png");
 	

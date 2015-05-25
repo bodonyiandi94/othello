@@ -95,7 +95,7 @@ public class GameState {
 	}
 	
 	/**
-	 * Visszaadja a játékmezőt
+	 * Visszaadja a játékmezőt.
 	 * 
 	 * @return játékmező
 	 */

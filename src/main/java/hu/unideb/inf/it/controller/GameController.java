@@ -82,7 +82,7 @@ public class GameController {
 	}
 
 	/**
-	 * Befejezteti a program működését
+	 * Befejezteti a program működését.
 	 */
 	public void stop() {
 		logger.info("Shutting down...");
@@ -442,7 +442,7 @@ public class GameController {
 	 *            a megnyomott gomb
 	 */
 	public void handleButtonClick(FieldButton button) {
-		logger.info("Handling button click");
+		logger.info("Handling button click at (" + button.getFieldX() + ", " + button.getFieldY() + ")");
 		if (!button.isChoice()) {
 			logger.info("Attempt to move to a field where the player cannot move");
 			return;

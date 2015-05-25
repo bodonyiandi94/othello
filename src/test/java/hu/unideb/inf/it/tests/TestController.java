@@ -1,5 +1,9 @@
 package hu.unideb.inf.it.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import hu.unideb.inf.it.controller.GameController;
 import hu.unideb.inf.it.model.Figure;
 import hu.unideb.inf.it.model.FigureType;
@@ -8,8 +12,6 @@ import hu.unideb.inf.it.view.FieldButton;
 import hu.unideb.inf.it.view.MainFrame;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * A játékvezerlő osztályhoz tartozó tesztesetek.
@@ -20,11 +22,6 @@ import static org.junit.Assert.*;
  */
 public class TestController {
 
-	//TODO teszt a játék vegere
-	//TODO teszt arra, amikor senki se tud lepni
-	//TODO teszt arra, amikor olyan gombra kattint, amire nem lehet lepni
-	//TODO teszt arra, amikor a mezon kivulre lehetne lepni
-	
 	@Test
 	/**
 	 * A figurák forgatásának tesztelése.
@@ -137,5 +134,39 @@ public class TestController {
 		GameController.getInstance().move(2, 0);
 		GameController.getInstance().switchTurns();
 		assertEquals(1, GameController.getInstance().findWinner());
+	}
+	
+	@Test
+	/**
+	 * Teszteset helytelen mezőre való lépésre.
+	 */
+	public void testMoveOnInvalidField(){
+		GameController.getInstance().newGame(8,0);
+		GameController.getInstance().handleButtonClick(MainFrame.getInstance().getButtons()[0][0]);
+	}
+	
+	@Test
+	/**
+	 * Teszteset a játék végére
+	 */
+	public void testGameEnd() {
+		GameController controller = GameController.getInstance();
+		controller.addPlayer("Tesztjátékos 1");
+		controller.addPlayer("Tesztjátékos 2");
+		controller.newGame(4,0);
+
+		controller.handleButtonClick(MainFrame.getInstance().getButtons()[0][1]);
+		controller.handleButtonClick(MainFrame.getInstance().getButtons()[0][2]);
+		controller.handleButtonClick(MainFrame.getInstance().getButtons()[1][3]);
+		controller.handleButtonClick(MainFrame.getInstance().getButtons()[2][0]);
+		controller.handleButtonClick(MainFrame.getInstance().getButtons()[3][1]);
+		controller.handleButtonClick(MainFrame.getInstance().getButtons()[3][2]);
+		controller.handleButtonClick(MainFrame.getInstance().getButtons()[2][3]);
+		controller.handleButtonClick(MainFrame.getInstance().getButtons()[1][0]);
+		controller.handleButtonClick(MainFrame.getInstance().getButtons()[3][0]);
+		controller.handleButtonClick(MainFrame.getInstance().getButtons()[0][0]);
+		controller.handleButtonClick(MainFrame.getInstance().getButtons()[3][3]);
+		
+		assertFalse(controller.getGameState().isActive());
 	}
 }

@@ -35,7 +35,7 @@ public class Figure {
 	}
 
 	/**
-	 * Létrehoz egy új bábut a megadott típussal
+	 * Létrehoz egy új bábut a megadott típussal.
 	 * 
 	 * @param figureType a figura típusa
 	 */

@@ -20,6 +20,21 @@
             <pattern>%d{HH:mm.ss.SSS} %-5level %logger{32} - %msg%n</pattern>
         </encoder>
     </appender>
+	
+    <appender name="FILE_INFO" class="ch.qos.logback.core.FileAppender">
+        <file>info.log</file>
+        <append>false</append>
+        
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        
+        <encoder>
+            <pattern>%d{HH:mm.ss.SSS} %-5level %logger{32} - %msg%n</pattern>
+        </encoder>
+    </appender>
     
     <appender name="FILE_ERROR" class="ch.qos.logback.core.FileAppender">
         <file>errors.log</file>
@@ -39,6 +54,7 @@
     <root level="ALL">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
+        <appender-ref ref="FILE_INFO"/>
         <appender-ref ref="FILE_ERROR"/>
     </root>
     
