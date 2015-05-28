@@ -67,19 +67,13 @@
 			<version>1.1.2</version>
 		</dependency>
 
-		<dependency>
-			<groupId>maven-plugins</groupId>
-			<artifactId>maven-install-plugin</artifactId>
-			<version>2.5.2</version>
-			<type>plugin</type>
-		</dependency>
 	</dependencies>
-
 
 	<repositories>
 		<repository>
-			<id>codelds</id>
-			<url>https://code.lds.org/nexus/content/groups/main-repo</url>
+			<id>local</id>
+			<url>
+					file://${project.basedir}/lib</url>
 		</repository>
 	</repositories>
 
@@ -141,29 +135,6 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-install-plugin</artifactId>
-				<version>2.5.2</version>
-
-				<executions>
-					<execution>
-						<id>install-jdbc</id>
-						<goals>
-							<goal>install-file</goal>
-						</goals>
-						<phase>package</phase>
-
-						<configuration>
-							<file>ojdbc6.jar</file>
-							<groupId>com.oracle</groupId>
-							<artifactId>ojdbc6</artifactId>
-							<packaging>jar</packaging>
-							<version>11.2</version>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 
 		</plugins>
 	</build>
