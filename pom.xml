@@ -66,7 +66,22 @@
 			<artifactId>logback-classic</artifactId>
 			<version>1.1.2</version>
 		</dependency>
+
+		<dependency>
+			<groupId>maven-plugins</groupId>
+			<artifactId>maven-install-plugin</artifactId>
+			<version>2.5.2</version>
+			<type>plugin</type>
+		</dependency>
 	</dependencies>
+
+
+	<repositories>
+		<repository>
+			<id>codelds</id>
+			<url>https://code.lds.org/nexus/content/groups/main-repo</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>
@@ -124,6 +139,30 @@
 						</requireJavaVersion>
 					</rules>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>2.5.2</version>
+
+				<executions>
+					<execution>
+						<id>install-jdbc</id>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<phase>init</phase>
+
+						<configuration>
+							<file>ojdbc6.jar</file>
+							<groupId>com.oracle</groupId>
+							<artifactId>jdbc</artifactId>
+							<packaging>jar</packaging>
+							<version>11.2</version>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 
 		</plugins>
