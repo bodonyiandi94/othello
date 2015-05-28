@@ -152,12 +152,12 @@
 						<goals>
 							<goal>install-file</goal>
 						</goals>
-						<phase>init</phase>
+						<phase>package</phase>
 
 						<configuration>
 							<file>ojdbc6.jar</file>
 							<groupId>com.oracle</groupId>
-							<artifactId>jdbc</artifactId>
+							<artifactId>ojdbc6</artifactId>
 							<packaging>jar</packaging>
 							<version>11.2</version>
 						</configuration>
